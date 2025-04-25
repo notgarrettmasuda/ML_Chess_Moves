@@ -9,6 +9,8 @@ This project implements a playable chess game using Pygame, enhanced with a mach
 ## How to Play
 This is a machine learning-powered chess game built with Pygame. You play as White, and the computer plays as Black. Here's how to use the program:
 
+python main.py
+
 Controls:
 🖱 Mouse Click: Select and move your pieces.
 
