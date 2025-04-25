@@ -9,10 +9,12 @@ model = load("chess_model.joblib")
 
 WIDTH, HEIGHT = 600, 600
 SQUARE_SIZE = WIDTH // 8
-WHITE, BLACK, BROWN, YELLOW = (255, 255, 255), (0, 0, 0), (139, 69, 19), (255, 255, 0)
+WHITE, BLACK, BROWN, YELLOW, GREEN = (255, 255, 255), (0, 0, 0), (139, 69, 19), (255, 255, 0), (0, 255, 0)
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Chess Game")
 font = pygame.font.SysFont("Arial", 32)
+button_font = pygame.font.SysFont("Arial", 20)
+
 
 suggested_move = None
 
@@ -54,7 +56,7 @@ def draw_board():
             pygame.draw.rect(screen, WHITE if (r + c) % 2 == 0 else BROWN, (c * SQUARE_SIZE, r * SQUARE_SIZE, SQUARE_SIZE, SQUARE_SIZE))
     if suggested_move:
         (r1, c1), (r2, c2) = suggested_move
-        pygame.draw.rect(screen, YELLOW, (c1 * SQUARE_SIZE, r1 * SQUARE_SIZE, SQUARE_SIZE, SQUARE_SIZE), 4)
+        pygame.draw.rect(screen, GREEN, (c1 * SQUARE_SIZE, r1 * SQUARE_SIZE, SQUARE_SIZE, SQUARE_SIZE), 4)
         pygame.draw.rect(screen, YELLOW, (c2 * SQUARE_SIZE, r2 * SQUARE_SIZE, SQUARE_SIZE, SQUARE_SIZE), 4)
 
 def draw_pieces():
@@ -64,9 +66,11 @@ def draw_pieces():
                 screen.blit(board[r][c].image, (c * SQUARE_SIZE, r * SQUARE_SIZE))
 
 def draw_reset_button():
-    rect = pygame.Rect(WIDTH - 90, 10, 80, 30)
-    pygame.draw.rect(screen, (200, 0, 0), rect)
-    screen.blit(font.render("RESET", True, WHITE), (rect.x + 10, rect.y + 2))
+    button_width, button_height = 80, 30
+    x, y = WIDTH - button_width - 10, 10
+    pygame.draw.rect(screen, (200, 0, 0), (x, y, button_width, button_height))
+    text = button_font.render("RESET", True, WHITE)
+    screen.blit(text, (x + 12, y + 5))  # adjust for better centering
 
 def get_valid_moves(piece, r, c):
     moves, dirs = [], []
